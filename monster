@@ -1,0 +1,88 @@
+#include<iostream>
+using namespace std;
+//decloration
+void battleSim();
+
+//globalvariables:can be seen and used by all functions in the program
+int PlayerHealth = 100;
+
+int main() {
+	srand(time(NULL));
+	int room = 1;
+	char input;
+	while (PlayerHealth > 0) {//game loop
+		switch (room) {
+		case 1:
+			cout << "your in room 1,you can go (s)outh" << endl;
+			cin >> input;
+			if (input == 's')
+				room = 2;
+			break;
+		case 2:
+			battleSim();
+			cout << "your in room 2,you can go (n)orth,you can go (s)outh" << endl;
+			cin >> input;
+			if (input == 's')
+				room = 3;
+			else if (input == 'n')
+				room = 1;
+			break;
+		case 3:
+			cout << "your in room 3,you can go (n)orth" << endl;
+			cin >> input;
+			if (input == 'n')
+				room = 2;
+			break;
+		}
+
+
+	}//end og game loop
+
+
+}//end of main
+
+//finction def
+void battleSim() {
+	int MonsterHealth = 20;//only seen by the battle sim
+	int damage;
+	char dummy;
+	cout << endl << endl << "------------------------MONSTER BATTLE READY FIGHT----------------------" << endl;
+	cout << "an ogre attacks" << endl;
+	while (PlayerHealth > 0 && MonsterHealth > 0) {
+
+
+		//monster fight
+		damage = rand() % 11+5;//,pmster can bite for 0-10
+		cout << "the monster bites you for " <<damage<<" dmg" << endl;
+		PlayerHealth -= damage;
+		cout << "press any key to continue" << endl;
+		cin >> dummy;
+		//player fight
+		damage = rand() % 5 + 5;
+		cout << "you hit the monster for "<<damage<<" dmg" << endl;
+		MonsterHealth -= damage;
+		cout << "press any key to coninue" << endl;
+		cin >> dummy;
+
+		if (PlayerHealth > 0)
+			cout << "your health is low:" << PlayerHealth << endl;
+		else
+			cout << "you died bro" << endl;
+
+		if (MonsterHealth > 0)
+			cout << "the monster current health:" << MonsterHealth << endl;
+		else
+			cout << "you destroyed the moneter" << endl;
+
+		cout << "your health is now:" << PlayerHealth << endl;
+		cout << "the monsters health is now:" << MonsterHealth << endl;
+		cout << "press any key to continue" << endl;
+		cin >> dummy;
+	}
+	if (PlayerHealth > 0)
+		cout << "you win" << endl;
+	else
+		cout << "you lost bro" << endl;
+	cout << "--------------------END OF BATTLE--------------------------" << endl;
+
+}
